@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Retail Stock-out Risk Forecasting</title>
+
+    <style>
+        /* Full-page background image */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+
+            /* Background image from Flask static folder */
+            background-image: url("{{ url_for('static', filename='images/bg.png') }}");
+            background-size: cover;           /* scale to cover whole screen */
+            background-position: center;      /* center image */
+            background-repeat: no-repeat;     /* don't tile */
+            background-attachment: fixed;     /* stay fixed on scroll */
+            height: 100vh;
+        }
+
+        /* Semi-transparent container for readability */
+        .container {
+            width: 400px;
+            max-width: 90%;                 /* responsive for smaller screens */
+            margin: 100px auto;
+            padding: 30px;
+
+            background: rgba(255, 255, 255, 0.9);  /* slightly transparent white */
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .subtitle {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Make container vertical scrollable on small screens */
+        @media (max-height: 600px) {
+            .container {
+                margin-top: 50px;
+                margin-bottom: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>Retail Stock-out Risk Forecasting</h1>
+    <p class="subtitle">Upload Dataset & Predict Inventory Risk</p>
+
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <label>Upload Dataset</label>
+        <input type="file" name="file" required>
+
+        <label>Enter State</label>
+        <input type="text" name="state" placeholder="Example: Maharashtra" required>
+
+        <label>Enter City</label>
+        <input type="text" name="city" placeholder="Example: Mumbai" required>
+
+        <button type="submit">Predict Risk</button>
+    </form>
+</div>
+</body>
+</html>

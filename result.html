@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+
+<div class = "header">
+    Retail Analytics Dashboard
+</div>
+<div class="container">
+
+    <!-- KPI Cards -->
+    <div class="cards">
+        <div class="card">
+            <h4>Customer ID</h4>
+            <p>{{ result.customer_id }}</p>
+        </div>
+        <div class="card">
+            <h4>Total Spent</h4>
+            <p>₹ {{ result.total_spent }}</p>
+        </div>
+        <div class="card">
+            <h4>Total Orders</h4>
+            <p>{{ result.total_orders }}</p>
+        </div>
+        <div class="card">
+            <h4>Avg Order Value</h4>
+            <p>₹ {{ result.avg_order_value }}</p>
+        </div>
+        <div class="card">
+            <h4>Sales Velocity</h4>
+            <p>{{ result.sales_velocity }}</p>
+        </div>
+        <div class="card">
+            <h4>Customer Type</h4>
+            <p>{{ result.customer_type }}</p>
+        </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-box">
+        <h3>Sales Velocity per Day</h3>
+       
+        <canvas id="velocityChart"></canvas>
+    </div>
+
+</div>
+
+<script>
+const velocityData = {{ velocity_data | tojson }};
+
+const labels = velocityData.map(v => v.date);
+const values = velocityData.map(v => v.velocity);
+
+new Chart(document.getElementById("velocityChart"), {
+    type: "bar",
+    data: {
+        labels: labels,
+        datasets: [{
+            label: "Sales Velocity",
+            data: values,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
